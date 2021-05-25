@@ -45,8 +45,10 @@ class ModRequirementChecker(mobase.IPluginDiagnose):
         return [
             mobase.PluginRequirementFactory.basic(
                 lambda o: self.__get_game_with_mod_requirements(o) is not None,
-                "This plugin can only be enabled for game plugins implementing"
-                f" {IWithModRequirements.__name__} either directly or with a feature.",
+                self.__tr(
+                    "This plugin can only be enabled for game plugins implementing"
+                    " {0} either directly or with a feature."
+                ).format(IWithModRequirements.__name__),
             )
         ]
 
@@ -62,9 +64,8 @@ class ModRequirementChecker(mobase.IPluginDiagnose):
         return list(range(0, len(self.__mods_with_missing_requirements())))
 
     def shortDescription(self, key: int) -> str:
-        return self.__tr(
-            "Missing mod requirement: "
-            + self.__mods_with_missing_requirements_cache[key].requirement.name
+        return self.__tr("Missing mod requirement: {0}").format(
+            self.__mods_with_missing_requirements_cache[key].requirement.name
         )
 
     def fullDescription(self, key: int) -> str:
@@ -81,12 +82,14 @@ class ModRequirementChecker(mobase.IPluginDiagnose):
 
         mod_file_pairs = sorted(mod_file_map.items())
 
-        return self.__tr(
+        return (
             "<style>"
             "th {text-align: left;} th, td {padding: 0 2ex 1ex 0;}"
             # "tr.even {background-color: #242424;}"
             "</style>"
-            f"<p>Requirement: {requirement.name}</p>{description}"
+            "<p>"
+            + self.__tr("Requirement: {0}").format(requirement.name)
+            + f"</p>{description}"
             f'<p>{self.__get_mod_file_table(mod_file_pairs, even_tr_class="even")}</p>'
         )
 
@@ -137,7 +140,11 @@ class ModRequirementChecker(mobase.IPluginDiagnose):
         b = True
         return "".join(
             (
-                "<table><tr><th>Mod</th> <th>File</th></tr>",
+                "<table><tr><th>",
+                self.__tr("Mod"),
+                "</th><th>",
+                self.__tr("File"),
+                "</th></tr>",
                 *(
                     f"""<tr{
                     f' class="{even_tr_class}"'
