@@ -9,7 +9,7 @@ contents (including `mod_requirement_checker`) into the MO2 `plugins/` directory
 Mod Requirement Checker uses `ModRequirement` definitions from the current game
 or game feature (implementing `IWithModRequirements`).
 
-See `basic_games.basic_features` (submodule) for details.
+See [`basic_games.basic_features`](https://github.com/ZashIn/modorganizer-basic_games/tree/game_valheim/basic_features) (submodule) for details.
 
 Folder structure:
 ```
