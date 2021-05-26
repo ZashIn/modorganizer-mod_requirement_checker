@@ -1,0 +1,4 @@
+[submodule "basic_games"]
+	path = basic_games
+	url = https://github.com/ZashIn/modorganizer-basic_games.git
+	branch = game_valheim
